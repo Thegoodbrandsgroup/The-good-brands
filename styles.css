@@ -153,19 +153,19 @@ body {
 
 .product-row {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
+  grid-template-columns: 260px minmax(0, 1fr);
   gap: clamp(52px, 8vw, 96px);
   align-items: center;
-  min-height: 230px;
-  padding: 42px 7%;
+  min-height: 300px;
+  padding: 48px 6%;
   border-bottom: 1px solid var(--line);
   isolation: isolate;
   overflow: hidden;
 }
 
 .product-mark {
-  width: 220px;
-  height: 128px;
+  width: 260px;
+  height: 190px;
   display: grid;
   place-items: center;
   align-self: center;
@@ -176,10 +176,8 @@ body {
 
 .product-mark img {
   display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   object-position: center;
 }
@@ -275,15 +273,15 @@ body {
   }
 
   .product-row {
-    grid-template-columns: 140px minmax(0, 1fr);
+    grid-template-columns: 170px minmax(0, 1fr);
     gap: 32px;
-    min-height: 0;
+    min-height: 250px;
     padding: 44px 6%;
   }
 
   .product-mark {
-    width: 140px;
-    height: 100px;
+    width: 170px;
+    height: 145px;
   }
 }
 
@@ -320,14 +318,14 @@ body {
   }
 
   .product-row {
-    grid-template-columns: 116px minmax(0, 1fr);
+    grid-template-columns: 130px minmax(0, 1fr);
     gap: 24px;
     padding-inline: 0;
   }
 
   .product-mark {
-    width: 116px;
-    height: 96px;
+    width: 130px;
+    height: 120px;
   }
 
   .contact {
