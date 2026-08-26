@@ -159,21 +159,25 @@ body {
   min-height: 230px;
   padding: 42px 7%;
   border-bottom: 1px solid var(--line);
+  overflow: hidden;
 }
 
 .product-mark {
   width: 220px;
-  height: 108px;
+  height: 112px;
   display: grid;
   place-items: center;
+  align-self: center;
+  justify-self: center;
+  overflow: hidden;
 }
 
 .product-mark img {
   display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
 }
 
 .product-copy {
