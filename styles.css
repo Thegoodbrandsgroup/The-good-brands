@@ -159,6 +159,8 @@ body {
   min-height: 230px;
   padding: 42px 7%;
   border-bottom: 1px solid var(--line);
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .product-mark {
@@ -169,6 +171,7 @@ body {
   align-self: center;
   justify-self: center;
   padding: 12px;
+  overflow: hidden;
 }
 
 .product-mark img {
