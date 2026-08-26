@@ -21,6 +21,66 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.site-header {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.site-header-inner {
+  width: min(1200px, calc(100% - 48px));
+  min-height: 104px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header-home .site-header-inner {
+  justify-content: flex-end;
+}
+
+.nav-button {
+  display: inline-block;
+  padding: 13px 19px 12px;
+  color: var(--paper);
+  background-color: var(--pine);
+  border: 1px solid var(--pine);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.73rem;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.nav-button:hover,
+.nav-button:focus-visible {
+  color: var(--pine);
+  background-color: transparent;
+}
+
+.header-brand {
+  display: block;
+  width: 82px;
+}
+
+.header-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.products-page-header {
+  position: relative;
+  background-color: var(--kraft);
+  border-bottom: 1px solid var(--line);
+}
+
 .landing {
   min-height: 88vh;
   display: grid;
@@ -71,6 +131,7 @@ body {
   margin-bottom: 52px;
 }
 
+.section-heading h1,
 .section-heading h2 {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
@@ -92,16 +153,17 @@ body {
 
 .product-row {
   display: grid;
-  grid-template-columns: minmax(260px, 0.8fr) minmax(360px, 1.2fr);
+  grid-template-columns: 280px minmax(360px, 1fr);
   gap: clamp(48px, 8vw, 104px);
   align-items: center;
-  min-height: 330px;
-  padding: 52px 4%;
+  min-height: 252px;
+  padding: 42px 4%;
   border-bottom: 1px solid var(--line);
 }
 
 .product-mark {
-  height: 226px;
+  width: 280px;
+  height: 116px;
   display: grid;
   place-items: center;
 }
@@ -210,7 +272,8 @@ body {
   }
 
   .product-mark {
-    height: 190px;
+    width: 100%;
+    height: 104px;
   }
 
   .product-copy {
@@ -219,6 +282,20 @@ body {
 }
 
 @media (max-width: 600px) {
+  .site-header-inner {
+    width: calc(100% - 36px);
+    min-height: 88px;
+  }
+
+  .header-brand {
+    width: 68px;
+  }
+
+  .nav-button {
+    padding: 12px 15px 11px;
+    font-size: 0.68rem;
+  }
+
   .landing {
     min-height: 80vh;
     padding: 48px 20px 64px;
@@ -241,7 +318,7 @@ body {
   }
 
   .product-mark {
-    height: 172px;
+    height: 96px;
   }
 
   .contact {
