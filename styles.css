@@ -18,6 +18,7 @@ body {
 body {
   color: var(--pine);
   background-color: var(--kraft);
+  background-image: none;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -86,6 +87,8 @@ body {
   display: grid;
   place-items: center;
   padding: 72px 24px 88px;
+  background-color: var(--kraft);
+  background-image: none;
 }
 
 .landing-inner {
@@ -98,6 +101,9 @@ body {
   width: min(520px, 82vw);
   height: auto;
   margin: 0 auto;
+  image-rendering: auto;
+  filter: none;
+  opacity: 1;
 }
 
 .slogan {
