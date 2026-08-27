@@ -15,6 +15,13 @@
       <ellipse cx="29" cy="15" rx="3.8" ry="5.4" transform="rotate(25 29 15)" />
     </svg>`;
 
+  const gaitPattern = [
+    { side: -1, isFrontPaw: false },
+    { side: -1, isFrontPaw: true },
+    { side: 1, isFrontPaw: false },
+    { side: 1, isFrontPaw: true }
+  ];
+
   let timer;
 
   const randomBetween = (minimum, maximum) =>
@@ -52,12 +59,13 @@
     const dx = route.x2 - route.x1;
     const dy = route.y2 - route.y1;
     const distance = Math.hypot(dx, dy);
-    const stepCount = Math.max(8, Math.min(window.innerWidth < 600 ? 10 : 14, Math.round(distance / 82)));
+    const cycleCount = Math.max(2, Math.min(window.innerWidth < 600 ? 2 : 3, Math.round(distance / 360)));
+    const stepCount = cycleCount * gaitPattern.length;
     const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
     const perpendicularX = -dy / distance;
     const perpendicularY = dx / distance;
     const trail = document.createElement("div");
-    const duration = randomBetween(2.7, 3.2);
+    const duration = randomBetween(4.1, 4.7);
     const curve = randomBetween(-52, 52);
     let elapsedDelay = 0;
 
@@ -65,9 +73,8 @@
 
     for (let index = 0; index < stepCount; index += 1) {
       const progress = (index + 0.55) / stepCount;
-      const phase = index % 4;
-      const side = phase < 2 ? -1 : 1;
-      const isFrontPaw = phase === 1 || phase === 3;
+      const phaseIndex = index % gaitPattern.length;
+      const { side, isFrontPaw } = gaitPattern[phaseIndex];
       const laneOffset = side * randomBetween(11, 16);
       const curvedOffset = Math.sin(progress * Math.PI) * curve;
       const naturalJitter = randomBetween(-2.5, 2.5);
@@ -85,7 +92,9 @@
       paw.innerHTML = pawSvg;
       trail.appendChild(paw);
 
-      elapsedDelay += randomBetween(0.25, 0.39);
+      elapsedDelay += phaseIndex === gaitPattern.length - 1
+        ? randomBetween(0.74, 0.9)
+        : randomBetween(0.48, 0.6);
     }
 
     layer.appendChild(trail);
@@ -95,7 +104,7 @@
 
   function scheduleNext() {
     window.clearTimeout(timer);
-    timer = window.setTimeout(addTrail, randomBetween(4700, 6900));
+    timer = window.setTimeout(addTrail, randomBetween(7600, 9800));
   }
 
   document.addEventListener("visibilitychange", () => {
