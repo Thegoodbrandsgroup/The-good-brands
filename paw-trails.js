@@ -52,34 +52,37 @@
     const dx = route.x2 - route.x1;
     const dy = route.y2 - route.y1;
     const distance = Math.hypot(dx, dy);
-    const stepCount = Math.max(6, Math.min(window.innerWidth < 600 ? 8 : 11, Math.round(distance / 105)));
+    const pairCount = Math.max(4, Math.min(window.innerWidth < 600 ? 6 : 8, Math.round(distance / 155)));
     const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
     const perpendicularX = -dy / distance;
     const perpendicularY = dx / distance;
     const trail = document.createElement("div");
-    const duration = randomBetween(2.8, 3.4);
-    const stepDelay = randomBetween(0.38, 0.52);
+    const duration = randomBetween(2.7, 3.2);
+    const stepDelay = randomBetween(0.62, 0.78);
 
     trail.className = "paw-trail";
 
-    for (let index = 0; index < stepCount; index += 1) {
-      const progress = (index + 0.55) / stepCount;
-      const side = index % 2 === 0 ? -1 : 1;
-      const lateralOffset = side * randomBetween(8, 12);
-      const paw = document.createElement("span");
+    for (let pairIndex = 0; pairIndex < pairCount; pairIndex += 1) {
+      const progress = (pairIndex + 0.55) / pairCount;
+      const lateralDistance = randomBetween(13, 18);
 
-      paw.className = "paw-print";
-      paw.style.left = `${route.x1 + dx * progress + perpendicularX * lateralOffset}px`;
-      paw.style.top = `${route.y1 + dy * progress + perpendicularY * lateralOffset}px`;
-      paw.style.setProperty("--paw-angle", `${angle + randomBetween(-4, 4)}deg`);
-      paw.style.setProperty("--paw-duration", `${duration}s`);
-      paw.style.setProperty("--paw-delay", `${index * stepDelay}s`);
-      paw.innerHTML = pawSvg;
-      trail.appendChild(paw);
+      [-1, 1].forEach((side) => {
+        const paw = document.createElement("span");
+        const lateralOffset = side * lateralDistance;
+
+        paw.className = "paw-print";
+        paw.style.left = `${route.x1 + dx * progress + perpendicularX * lateralOffset}px`;
+        paw.style.top = `${route.y1 + dy * progress + perpendicularY * lateralOffset}px`;
+        paw.style.setProperty("--paw-angle", `${angle + side * randomBetween(1, 4)}deg`);
+        paw.style.setProperty("--paw-duration", `${duration}s`);
+        paw.style.setProperty("--paw-delay", `${pairIndex * stepDelay}s`);
+        paw.innerHTML = pawSvg;
+        trail.appendChild(paw);
+      });
     }
 
     layer.appendChild(trail);
-    window.setTimeout(() => trail.remove(), (duration + stepCount * stepDelay + 0.3) * 1000);
+    window.setTimeout(() => trail.remove(), (duration + pairCount * stepDelay + 0.3) * 1000);
     scheduleNext();
   }
 
