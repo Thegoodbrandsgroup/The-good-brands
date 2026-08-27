@@ -108,6 +108,9 @@ body {
 }
 
 .landing {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: 100vh;
   display: grid;
   place-items: center;
@@ -117,8 +120,58 @@ body {
 }
 
 .landing-inner {
+  position: relative;
+  z-index: 1;
   width: min(760px, 100%);
   text-align: center;
+}
+
+/* Removable homepage paw-trail effect. */
+.paw-trails {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  color: var(--pine);
+  pointer-events: none;
+}
+
+.paw-print {
+  position: absolute;
+  width: clamp(22px, 2.15vw, 31px);
+  opacity: 0;
+  animation: paw-print-appear var(--paw-duration, 6.4s) ease-in-out var(--paw-delay, 0s) forwards;
+  transform: translate(-50%, -50%) rotate(var(--paw-angle, 0deg));
+  transform-origin: center;
+}
+
+.paw-print svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  fill: currentColor;
+}
+
+@keyframes paw-print-appear {
+  0% {
+    opacity: 0;
+  }
+
+  9%,
+  54% {
+    opacity: 0.16;
+  }
+
+  78%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paw-trails {
+    display: none;
+  }
 }
 
 .brand-logo {
