@@ -7,12 +7,12 @@
   }
 
   const pawSvg = `
-    <svg viewBox="0 0 32 38" aria-hidden="true">
-      <ellipse cx="16" cy="25" rx="8.5" ry="10" />
-      <ellipse cx="7" cy="15" rx="3.6" ry="5" transform="rotate(-24 7 15)" />
-      <ellipse cx="13" cy="8" rx="3.5" ry="5" transform="rotate(-7 13 8)" />
-      <ellipse cx="21" cy="8" rx="3.5" ry="5" transform="rotate(7 21 8)" />
-      <ellipse cx="27" cy="15" rx="3.6" ry="5" transform="rotate(24 27 15)" />
+    <svg viewBox="0 0 36 40" aria-hidden="true">
+      <path d="M18 16.2c-3.4 0-4.8 2.6-6.1 5-1.4 2.5-4.5 4.2-3.9 7.7.7 4.1 5.3 5.9 10 5.9s9.3-1.8 10-5.9c.6-3.5-2.5-5.2-3.9-7.7-1.3-2.4-2.7-5-6.1-5Z" />
+      <ellipse cx="7" cy="15" rx="3.8" ry="5.4" transform="rotate(-25 7 15)" />
+      <ellipse cx="14" cy="8" rx="3.7" ry="5.4" transform="rotate(-8 14 8)" />
+      <ellipse cx="22" cy="8" rx="3.7" ry="5.4" transform="rotate(8 22 8)" />
+      <ellipse cx="29" cy="15" rx="3.8" ry="5.4" transform="rotate(25 29 15)" />
     </svg>`;
 
   let timer;
@@ -57,8 +57,8 @@
     const perpendicularX = -dy / distance;
     const perpendicularY = dx / distance;
     const trail = document.createElement("div");
-    const duration = randomBetween(5.7, 7.1);
-    const stepDelay = randomBetween(0.3, 0.43);
+    const duration = randomBetween(2.8, 3.4);
+    const stepDelay = randomBetween(0.38, 0.52);
 
     trail.className = "paw-trail";
 

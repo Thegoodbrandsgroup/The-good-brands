@@ -140,7 +140,7 @@ body {
   position: absolute;
   width: clamp(22px, 2.15vw, 31px);
   opacity: 0;
-  animation: paw-print-appear var(--paw-duration, 6.4s) ease-in-out var(--paw-delay, 0s) forwards;
+  animation: paw-print-appear var(--paw-duration, 3.1s) ease-in-out var(--paw-delay, 0s) forwards;
   transform: translate(-50%, -50%) rotate(var(--paw-angle, 0deg));
   transform-origin: center;
 }
@@ -157,12 +157,11 @@ body {
     opacity: 0;
   }
 
-  9%,
-  54% {
-    opacity: 0.16;
+  12%,
+  38% {
+    opacity: 0.28;
   }
 
-  78%,
   100% {
     opacity: 0;
   }
