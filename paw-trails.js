@@ -52,37 +52,44 @@
     const dx = route.x2 - route.x1;
     const dy = route.y2 - route.y1;
     const distance = Math.hypot(dx, dy);
-    const pairCount = Math.max(4, Math.min(window.innerWidth < 600 ? 6 : 8, Math.round(distance / 155)));
+    const stepCount = Math.max(8, Math.min(window.innerWidth < 600 ? 10 : 14, Math.round(distance / 82)));
     const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
     const perpendicularX = -dy / distance;
     const perpendicularY = dx / distance;
     const trail = document.createElement("div");
     const duration = randomBetween(2.7, 3.2);
-    const stepDelay = randomBetween(0.62, 0.78);
+    const curve = randomBetween(-52, 52);
+    let elapsedDelay = 0;
 
     trail.className = "paw-trail";
 
-    for (let pairIndex = 0; pairIndex < pairCount; pairIndex += 1) {
-      const progress = (pairIndex + 0.55) / pairCount;
-      const lateralDistance = randomBetween(13, 18);
+    for (let index = 0; index < stepCount; index += 1) {
+      const progress = (index + 0.55) / stepCount;
+      const phase = index % 4;
+      const side = phase < 2 ? -1 : 1;
+      const isFrontPaw = phase === 1 || phase === 3;
+      const laneOffset = side * randomBetween(11, 16);
+      const curvedOffset = Math.sin(progress * Math.PI) * curve;
+      const naturalJitter = randomBetween(-2.5, 2.5);
+      const totalOffset = laneOffset + curvedOffset + naturalJitter;
+      const curveAngle = Math.atan((curve * Math.PI * Math.cos(progress * Math.PI)) / distance) * (180 / Math.PI);
+      const paw = document.createElement("span");
 
-      [-1, 1].forEach((side) => {
-        const paw = document.createElement("span");
-        const lateralOffset = side * lateralDistance;
+      paw.className = "paw-print";
+      paw.style.left = `${route.x1 + dx * progress + perpendicularX * totalOffset}px`;
+      paw.style.top = `${route.y1 + dy * progress + perpendicularY * totalOffset}px`;
+      paw.style.setProperty("--paw-angle", `${angle + curveAngle + side * randomBetween(0.5, 3)}deg`);
+      paw.style.setProperty("--paw-scale", isFrontPaw ? randomBetween(0.98, 1.05) : randomBetween(0.86, 0.93));
+      paw.style.setProperty("--paw-duration", `${duration}s`);
+      paw.style.setProperty("--paw-delay", `${elapsedDelay}s`);
+      paw.innerHTML = pawSvg;
+      trail.appendChild(paw);
 
-        paw.className = "paw-print";
-        paw.style.left = `${route.x1 + dx * progress + perpendicularX * lateralOffset}px`;
-        paw.style.top = `${route.y1 + dy * progress + perpendicularY * lateralOffset}px`;
-        paw.style.setProperty("--paw-angle", `${angle + side * randomBetween(1, 4)}deg`);
-        paw.style.setProperty("--paw-duration", `${duration}s`);
-        paw.style.setProperty("--paw-delay", `${pairIndex * stepDelay}s`);
-        paw.innerHTML = pawSvg;
-        trail.appendChild(paw);
-      });
+      elapsedDelay += randomBetween(0.25, 0.39);
     }
 
     layer.appendChild(trail);
-    window.setTimeout(() => trail.remove(), (duration + pairCount * stepDelay + 0.3) * 1000);
+    window.setTimeout(() => trail.remove(), (duration + elapsedDelay + 0.3) * 1000);
     scheduleNext();
   }
 
