@@ -141,12 +141,23 @@ body {
   font-style: italic;
 }
 
-.brand-statement {
-  max-width: 680px;
-  margin: 28px auto 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: clamp(0.98rem, 1.6vw, 1.12rem);
-  line-height: 1.65;
+.marker-underline {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.marker-underline::after {
+  content: "";
+  position: absolute;
+  left: 2%;
+  right: 1%;
+  bottom: -0.16em;
+  height: 0.16em;
+  border-top: 0.11em solid currentColor;
+  border-radius: 50%;
+  opacity: 0.82;
+  transform: rotate(-1.2deg) skewX(-8deg);
 }
 
 .products {
@@ -493,10 +504,6 @@ body {
 
   .slogan {
     margin-top: 30px;
-  }
-
-  .brand-statement {
-    margin-top: 24px;
   }
 
   .products-inner {
