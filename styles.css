@@ -369,34 +369,6 @@ body {
   line-height: 1.55;
 }
 
-.mission-statement {
-  margin-top: 66px;
-  padding-top: 54px;
-  border-top: 1px solid var(--line);
-  text-align: center;
-}
-
-.mission-statement h2 {
-  margin: 0 0 26px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.9rem, 3.4vw, 2.7rem);
-  line-height: 1.15;
-}
-
-.mission-line {
-  max-width: 650px;
-  margin: 0 auto 22px !important;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.18rem, 2.2vw, 1.48rem);
-  line-height: 1.55;
-}
-
-.closing-line {
-  margin: 0 !important;
-  font-family: Georgia, "Times New Roman", serif;
-  font-style: italic;
-}
-
 .contact-page-main {
   min-height: max(560px, calc(100vh - 295px));
   display: grid;
@@ -580,11 +552,6 @@ body {
 
   .page-heading {
     margin-bottom: 46px;
-  }
-
-  .mission-statement {
-    margin-top: 52px;
-    padding-top: 44px;
   }
 
   .contact-page-main {
