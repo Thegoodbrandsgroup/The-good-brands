@@ -339,6 +339,32 @@ body {
   padding: 112px 0 124px;
 }
 
+.mission-editorial {
+  width: min(1160px, calc(100% - 48px));
+}
+
+.mission-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 780px) minmax(210px, 250px);
+  gap: clamp(54px, 7vw, 96px);
+  align-items: start;
+}
+
+.mission-emblems {
+  display: grid;
+  justify-items: center;
+  gap: 24px;
+  padding-left: clamp(30px, 4vw, 54px);
+  border-left: 1px solid var(--line);
+}
+
+.mission-emblems img {
+  display: block;
+  width: 100%;
+  max-width: 205px;
+  height: auto;
+}
+
 .page-heading {
   margin-bottom: 62px;
   text-align: center;
@@ -498,6 +524,25 @@ body {
   }
 }
 
+@media (max-width: 920px) {
+  .mission-layout {
+    grid-template-columns: 1fr;
+    gap: 54px;
+  }
+
+  .mission-emblems {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    padding: 48px 0 0;
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  .mission-emblems img {
+    max-width: 190px;
+  }
+}
+
 @media (max-width: 600px) {
   .site-header-inner {
     width: calc(100% - 36px);
@@ -548,6 +593,15 @@ body {
   .editorial {
     width: calc(100% - 36px);
     padding: 80px 0 90px;
+  }
+
+  .mission-emblems {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .mission-emblems img {
+    max-width: 235px;
   }
 
   .page-heading {
