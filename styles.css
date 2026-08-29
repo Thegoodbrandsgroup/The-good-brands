@@ -345,17 +345,30 @@ body {
 
 .mission-layout {
   display: grid;
-  grid-template-columns: minmax(0, 780px) minmax(210px, 250px);
+  grid-template-columns: minmax(210px, 250px) minmax(0, 780px);
   gap: clamp(54px, 7vw, 96px);
-  align-items: start;
+  align-items: stretch;
+}
+
+.mission-layout .prose {
+  grid-column: 2;
+  font-size: clamp(1.08rem, 1.65vw, 1.2rem);
+  line-height: 1.84;
+}
+
+.mission-layout .prose .lead {
+  font-size: clamp(1.38rem, 2.7vw, 1.78rem);
 }
 
 .mission-emblems {
+  grid-column: 1;
+  grid-row: 1;
   display: grid;
   justify-items: center;
+  align-content: space-between;
   gap: 24px;
-  padding-left: clamp(30px, 4vw, 54px);
-  border-left: 1px solid var(--line);
+  padding-right: clamp(30px, 4vw, 54px);
+  border-right: 1px solid var(--line);
 }
 
 .mission-emblems img {
@@ -531,11 +544,17 @@ body {
   }
 
   .mission-emblems {
+    grid-column: auto;
+    grid-row: auto;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
     padding: 48px 0 0;
     border-top: 1px solid var(--line);
-    border-left: 0;
+    border-right: 0;
+  }
+
+  .mission-layout .prose {
+    grid-column: auto;
   }
 
   .mission-emblems img {
