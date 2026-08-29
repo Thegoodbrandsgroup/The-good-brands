@@ -248,6 +248,248 @@ body {
   line-height: 1.5;
 }
 
+/* Removable Our Products puppy animation. */
+.product-title-stage {
+  --puppy-line-level: 32px;
+  --puppy-title-level: 101px;
+  position: relative;
+  width: min(720px, 100%);
+  height: 166px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.product-title-stage::after {
+  position: absolute;
+  z-index: 0;
+  right: 4%;
+  bottom: 31px;
+  left: 4%;
+  height: 1px;
+  background-color: var(--pine);
+  content: "";
+  opacity: 0.48;
+}
+
+.product-title-stage h1 {
+  position: absolute;
+  z-index: 1;
+  top: 61px;
+  right: 0;
+  left: 0;
+}
+
+.product-puppy {
+  position: absolute;
+  z-index: 2;
+  bottom: var(--puppy-line-level);
+  left: -10%;
+  width: 64px;
+  color: var(--pine);
+  opacity: 0;
+  transform-origin: 50% 100%;
+  animation: product-puppy-route 16.8s 1.1s linear both;
+}
+
+.puppy-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  animation: puppy-body-bob 0.5s ease-in-out infinite alternate;
+}
+
+.puppy-tail,
+.puppy-head,
+.puppy-leg {
+  transform-box: view-box;
+}
+
+.puppy-tail {
+  transform-origin: 24px 31px;
+  animation: puppy-tail-wag 0.48s ease-in-out infinite alternate;
+}
+
+.puppy-head {
+  transform-origin: 72px 35px;
+  animation: puppy-head-look 1.8s ease-in-out infinite alternate;
+}
+
+.puppy-leg {
+  transform-origin: 50% 52%;
+}
+
+.puppy-leg-back-a,
+.puppy-leg-front-b {
+  animation: puppy-step-forward 0.5s ease-in-out infinite alternate;
+}
+
+.puppy-leg-back-b,
+.puppy-leg-front-a {
+  animation: puppy-step-back 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes product-puppy-route {
+  0% {
+    left: -10%;
+    bottom: var(--puppy-line-level);
+    opacity: 0;
+    transform: rotate(0deg) scale(1);
+  }
+
+  3% {
+    opacity: 1;
+  }
+
+  18% {
+    left: 23%;
+    bottom: var(--puppy-line-level);
+    transform: rotate(0deg) scale(1);
+  }
+
+  20% {
+    left: 24%;
+    bottom: calc(var(--puppy-line-level) - 3px);
+    transform: rotate(-3deg) scale(1.03, 0.9);
+  }
+
+  23% {
+    left: 29%;
+    bottom: calc(var(--puppy-title-level) - 25px);
+    transform: rotate(-11deg) scale(0.96, 1.04);
+  }
+
+  25% {
+    left: 27%;
+    bottom: calc(var(--puppy-line-level) + 23px);
+    transform: rotate(8deg) scale(1.03, 0.94);
+  }
+
+  28% {
+    left: 25%;
+    bottom: var(--puppy-line-level);
+    transform: rotate(0deg) scale(1);
+  }
+
+  31% {
+    left: 26%;
+    bottom: calc(var(--puppy-line-level) - 4px);
+    transform: rotate(-4deg) scale(1.06, 0.88);
+  }
+
+  36% {
+    left: 32%;
+    bottom: calc(var(--puppy-title-level) + 10px);
+    transform: rotate(-9deg) scale(0.96, 1.05);
+  }
+
+  39% {
+    left: 35%;
+    bottom: var(--puppy-title-level);
+    transform: rotate(2deg) scale(1.04, 0.96);
+  }
+
+  43% {
+    left: 38%;
+    bottom: var(--puppy-title-level);
+    transform: rotate(0deg) scale(1);
+  }
+
+  66% {
+    left: 68%;
+    bottom: var(--puppy-title-level);
+    transform: rotate(0deg) scale(1);
+  }
+
+  69% {
+    left: 70%;
+    bottom: calc(var(--puppy-title-level) - 3px);
+    transform: rotate(4deg) scale(1.04, 0.92);
+  }
+
+  74% {
+    left: 77%;
+    bottom: var(--puppy-line-level);
+    transform: rotate(9deg) scale(0.98, 1.03);
+  }
+
+  78% {
+    left: 80%;
+    bottom: var(--puppy-line-level);
+    transform: rotate(0deg) scale(1);
+  }
+
+  94% {
+    left: 102%;
+    bottom: var(--puppy-line-level);
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  100% {
+    left: 110%;
+    bottom: var(--puppy-line-level);
+    opacity: 0;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes puppy-body-bob {
+  from {
+    transform: translateY(0) rotate(-0.6deg);
+  }
+
+  to {
+    transform: translateY(-2px) rotate(0.7deg);
+  }
+}
+
+@keyframes puppy-tail-wag {
+  from {
+    transform: rotate(-11deg);
+  }
+
+  to {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes puppy-head-look {
+  from {
+    transform: rotate(-2deg) translateY(0);
+  }
+
+  to {
+    transform: rotate(3deg) translateY(-1px);
+  }
+}
+
+@keyframes puppy-step-forward {
+  from {
+    transform: rotate(-10deg) translateX(-1px);
+  }
+
+  to {
+    transform: rotate(13deg) translateX(1px);
+  }
+}
+
+@keyframes puppy-step-back {
+  from {
+    transform: rotate(12deg) translateX(1px);
+  }
+
+  to {
+    transform: rotate(-11deg) translateX(-1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-puppy {
+    display: none;
+  }
+}
+
 .product-list {
   border-top: 1px solid var(--line);
 }
@@ -596,6 +838,24 @@ body {
 
   .products-inner {
     width: calc(100% - 36px);
+  }
+
+  .product-title-stage {
+    --puppy-line-level: 30px;
+    --puppy-title-level: 86px;
+    height: 145px;
+  }
+
+  .product-title-stage::after {
+    bottom: 29px;
+  }
+
+  .product-title-stage h1 {
+    top: 53px;
+  }
+
+  .product-puppy {
+    width: 52px;
   }
 
   .product-row {
