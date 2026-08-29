@@ -244,12 +244,13 @@ body {
 .section-heading p {
   display: inline-block;
   margin: -18px 0 0;
-  font-family: "Snell Roundhand", "Apple Chancery", "Segoe Script", "Brush Script MT", cursive;
+  font-family: "Noteworthy", "Bradley Hand", "Chalkboard SE", "Segoe Print", cursive;
   font-size: clamp(1.35rem, 2.4vw, 1.65rem);
   line-height: 1.25;
-  font-weight: 600;
-  letter-spacing: 0.015em;
-  transform: rotate(-0.35deg);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: 0.005em;
+  transform: rotate(-0.55deg);
 }
 
 /* Removable Our Products puppy animation. */
