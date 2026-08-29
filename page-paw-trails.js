@@ -92,10 +92,18 @@
     const right = Math.min(width - 22, contentBox.right - stageBox.left + inset);
     const top = Math.max(32, contentBox.top - stageBox.top - inset);
     const bottom = Math.min(height - 34, contentBox.bottom - stageBox.top + inset);
-    const final = {
-      x: Math.min(width - 28, headingBox.right - stageBox.left + (width < 600 ? 23 : 34)),
-      y: headingBox.top - stageBox.top + headingBox.height * 0.52
-    };
+    const titleRight = headingBox.right - stageBox.left;
+    const titleCenterY = headingBox.top - stageBox.top + headingBox.height * 0.52;
+    const finalPair = [
+      {
+        x: Math.min(width - 46, titleRight + (width < 600 ? 19 : 25)),
+        y: titleCenterY + (width < 600 ? 9 : 11)
+      },
+      {
+        x: Math.min(width - 25, titleRight + (width < 600 ? 36 : 45)),
+        y: titleCenterY - (width < 600 ? 10 : 13)
+      }
+    ];
     const points = [];
     const start = { x: -34, y: top + corner };
     const upperLeft = { x: left, y: top + corner };
@@ -113,7 +121,8 @@
     addArc(points, bottomRight, { x: right, y: bottom }, lowerRight);
     addLine(points, lowerRight, upperRight, 62);
     addArc(points, upperRight, { x: right, y: top }, topRight);
-    addLine(points, topRight, final, 54);
+    addLine(points, topRight, finalPair[0], 54);
+    points.push(finalPair[1]);
     return points;
   }
 
@@ -142,12 +151,15 @@
       const laneOffset = gait.side * (window.innerWidth < 600 ? 7.5 : 9);
       const angle = Math.atan2(directionY, directionX) * (180 / Math.PI) + 90;
       const paw = document.createElement("span");
-      const isFinal = route === "contact" && index === points.length - 1;
+      const isFinal = route === "contact" && index >= points.length - 2;
+      const pawAngle = isFinal
+        ? angle + gait.side * 1.5 + 180
+        : angle + gait.side * 1.5;
 
       paw.className = `paw-print page-trail-paw${isFinal ? " page-paw-final" : ""}`;
       paw.style.left = `${point.x + perpendicularX * laneOffset}px`;
       paw.style.top = `${point.y + perpendicularY * laneOffset}px`;
-      paw.style.setProperty("--paw-angle", `${angle + gait.side * 1.5}deg`);
+      paw.style.setProperty("--paw-angle", `${pawAngle}deg`);
       paw.style.setProperty("--paw-scale", gait.scale);
       paw.style.setProperty("--paw-duration", "4.1s");
       paw.style.setProperty("--paw-delay", `${elapsedDelay}s`);
