@@ -251,9 +251,9 @@ body {
 /* Removable Our Products puppy animation. */
 .product-title-stage {
   position: relative;
-  width: min(720px, 100%);
+  width: 100vw;
   height: 166px;
-  margin: 0 auto;
+  margin-left: calc(50% - 50vw);
   overflow: hidden;
 }
 
@@ -281,111 +281,30 @@ body {
   display: inline-block;
 }
 
-.product-puppy {
+.product-heading-paw-layer {
   position: absolute;
   z-index: 2;
-  top: 0;
-  left: 0;
-  width: 74px;
+  inset: 0;
   color: var(--pine);
-  opacity: 0;
-  transform-origin: 50% 100%;
-  will-change: transform, opacity;
+  pointer-events: none;
 }
 
-.puppy-figure {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
-  animation: puppy-body-bob 0.56s ease-in-out infinite alternate;
-}
-
-.puppy-tail {
-  transform-box: view-box;
-  transform-origin: 27px 39px;
-  animation: puppy-tail-wag 0.54s ease-in-out infinite alternate;
-}
-
-.puppy-head {
-  transform-box: view-box;
-  transform-origin: 73px 42px;
-  animation: puppy-head-look 1.65s ease-in-out infinite alternate;
-}
-
-.puppy-leg {
-  transform-box: fill-box;
-  transform-origin: 50% 8%;
-}
-
-.puppy-leg-back-a,
-.puppy-leg-front-b {
-  animation: puppy-step-forward 0.56s ease-in-out infinite alternate;
-}
-
-.puppy-leg-back-b,
-.puppy-leg-front-a {
-  animation: puppy-step-back 0.56s ease-in-out infinite alternate;
-}
-
-@keyframes puppy-body-bob {
-  from {
-    transform: translateY(0) rotate(-0.35deg);
-  }
-
-  to {
-    transform: translateY(-2.4px) rotate(0.45deg);
-  }
-}
-
-@keyframes puppy-tail-wag {
-  from {
-    transform: rotate(-9deg);
-  }
-
-  to {
-    transform: rotate(13deg);
-  }
-}
-
-@keyframes puppy-head-look {
-  from {
-    transform: rotate(-1.5deg) translateY(0);
-  }
-
-  to {
-    transform: rotate(2deg) translateY(-1.2px);
-  }
-}
-
-@keyframes puppy-step-forward {
-  from {
-    transform: rotate(-8deg) translateX(-0.8px);
-  }
-
-  to {
-    transform: rotate(10deg) translateX(0.8px);
-  }
-}
-
-@keyframes puppy-step-back {
-  from {
-    transform: rotate(9deg) translateX(0.8px);
-  }
-
-  to {
-    transform: rotate(-8deg) translateX(-0.8px);
-  }
+.product-heading-paw {
+  width: clamp(21px, 2vw, 29px);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .product-puppy {
+  .product-heading-paw-layer {
     display: none;
   }
 }
 
 .product-list {
   border-top: 1px solid var(--line);
+}
+
+.products-page-products {
+  overflow: hidden;
 }
 
 .product-row {
@@ -744,10 +663,6 @@ body {
 
   .product-title-stage h1 {
     top: 53px;
-  }
-
-  .product-puppy {
-    width: 58px;
   }
 
   .product-row {
