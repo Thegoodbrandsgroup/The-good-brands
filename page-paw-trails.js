@@ -51,6 +51,67 @@
     }
   }
 
+  function addCubic(points, start, firstControl, secondControl, end, steps = 18) {
+    for (let index = 1; index <= steps; index += 1) {
+      const progress = index / steps;
+      const inverse = 1 - progress;
+      points.push({
+        x: inverse ** 3 * start.x
+          + 3 * inverse * inverse * progress * firstControl.x
+          + 3 * inverse * progress * progress * secondControl.x
+          + progress ** 3 * end.x,
+        y: inverse ** 3 * start.y
+          + 3 * inverse * inverse * progress * firstControl.y
+          + 3 * inverse * progress * progress * secondControl.y
+          + progress ** 3 * end.y
+      });
+    }
+  }
+
+  function resamplePath(points, spacing) {
+    if (points.length < 2) {
+      return points;
+    }
+
+    const segmentLengths = [];
+    const cumulativeLengths = [0];
+
+    for (let index = 1; index < points.length; index += 1) {
+      const segmentLength = distance(points[index - 1], points[index]);
+      segmentLengths.push(segmentLength);
+      cumulativeLengths.push(cumulativeLengths[index - 1] + segmentLength);
+    }
+
+    const totalLength = cumulativeLengths[cumulativeLengths.length - 1];
+    const result = [];
+    const stepCount = Math.max(1, Math.round(totalLength / spacing));
+    let segmentIndex = 0;
+
+    for (let step = 0; step <= stepCount; step += 1) {
+      const target = Math.min(totalLength, (step / stepCount) * totalLength);
+
+      while (
+        segmentIndex < segmentLengths.length - 1
+        && cumulativeLengths[segmentIndex + 1] < target
+      ) {
+        segmentIndex += 1;
+      }
+
+      const segmentStart = cumulativeLengths[segmentIndex];
+      const segmentLength = segmentLengths[segmentIndex] || 1;
+      const progress = (target - segmentStart) / segmentLength;
+      const start = points[segmentIndex];
+      const end = points[segmentIndex + 1];
+
+      result.push({
+        x: start.x + (end.x - start.x) * progress,
+        y: start.y + (end.y - start.y) * progress
+      });
+    }
+
+    return result;
+  }
+
   function missionRoute(width, height) {
     const points = [];
     const y = height * 0.32;
@@ -94,16 +155,10 @@
     const bottom = Math.min(height - 34, contentBox.bottom - stageBox.top + inset);
     const titleRight = headingBox.right - stageBox.left;
     const titleCenterY = headingBox.top - stageBox.top + headingBox.height * 0.52;
-    const finalPair = [
-      {
-        x: Math.min(width - 46, titleRight + (width < 600 ? 19 : 25)),
-        y: titleCenterY + (width < 600 ? 9 : 11)
-      },
-      {
-        x: Math.min(width - 25, titleRight + (width < 600 ? 36 : 45)),
-        y: titleCenterY - (width < 600 ? 10 : 13)
-      }
-    ];
+    const final = {
+      x: Math.min(width - 25, titleRight + (width < 600 ? 21 : 28)),
+      y: titleCenterY + (width < 600 ? 8 : 10)
+    };
     const points = [];
     const start = { x: -34, y: top + corner };
     const upperLeft = { x: left, y: top + corner };
@@ -114,16 +169,23 @@
     const upperRight = { x: right, y: top + corner };
     const topRight = { x: right - corner, y: top };
 
-    addLine(points, start, upperLeft, 62);
-    addLine(points, upperLeft, lowerLeft, 62);
-    addArc(points, lowerLeft, { x: left, y: bottom }, bottomLeft);
-    addLine(points, bottomLeft, bottomRight, 62);
-    addArc(points, bottomRight, { x: right, y: bottom }, lowerRight);
-    addLine(points, lowerRight, upperRight, 62);
-    addArc(points, upperRight, { x: right, y: top }, topRight);
-    addLine(points, topRight, finalPair[0], 54);
-    points.push(finalPair[1]);
-    return points;
+    addLine(points, start, upperLeft, 10);
+    addLine(points, upperLeft, lowerLeft, 10);
+    addArc(points, lowerLeft, { x: left, y: bottom }, bottomLeft, 18);
+    addLine(points, bottomLeft, bottomRight, 10);
+    addArc(points, bottomRight, { x: right, y: bottom }, lowerRight, 18);
+    addLine(points, lowerRight, upperRight, 10);
+    addArc(points, upperRight, { x: right, y: top }, topRight, 18);
+    addCubic(
+      points,
+      topRight,
+      { x: topRight.x - Math.max(54, width * 0.08), y: top },
+      { x: final.x + Math.max(48, width * 0.06), y: final.y - inset * 0.72 },
+      final,
+      24
+    );
+
+    return resamplePath(points, width < 600 ? 49 : 60);
   }
 
   function renderTrail() {
@@ -151,9 +213,9 @@
       const laneOffset = gait.side * (window.innerWidth < 600 ? 7.5 : 9);
       const angle = Math.atan2(directionY, directionX) * (180 / Math.PI) + 90;
       const paw = document.createElement("span");
-      const isFinal = route === "contact" && index >= points.length - 2;
+      const isFinal = route === "contact" && index === points.length - 1;
       const pawAngle = isFinal
-        ? angle + gait.side * 1.5 + 180
+        ? 0
         : angle + gait.side * 1.5;
 
       paw.className = `paw-print page-trail-paw${isFinal ? " page-paw-final" : ""}`;
