@@ -156,7 +156,7 @@
     const titleRight = headingBox.right - stageBox.left;
     const titleCenterY = headingBox.top - stageBox.top + headingBox.height * 0.52;
     const final = {
-      x: Math.min(width - 25, titleRight + (width < 600 ? 21 : 28)),
+      x: Math.min(width - 25, titleRight + (width < 600 ? 15 : 17)),
       y: titleCenterY + (width < 600 ? 8 : 10)
     };
     const points = [];
