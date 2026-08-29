@@ -257,18 +257,6 @@ body {
   overflow: hidden;
 }
 
-.product-title-stage::after {
-  position: absolute;
-  z-index: 0;
-  right: 4%;
-  bottom: 31px;
-  left: 4%;
-  height: 1px;
-  background-color: var(--pine);
-  content: "";
-  opacity: 0.48;
-}
-
 .product-title-stage h1 {
   position: absolute;
   z-index: 1;
@@ -655,10 +643,6 @@ body {
 
   .product-title-stage {
     height: 145px;
-  }
-
-  .product-title-stage::after {
-    bottom: 29px;
   }
 
   .product-title-stage h1 {
