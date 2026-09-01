@@ -47,6 +47,18 @@
     return { x1: randomBetween(0, width), y1: height + outside, x2: randomBetween(0, width), y2: -outside };
   }
 
+  function firstLoopRoute(width, height) {
+    const outside = 44;
+    const loopY = height * 0.56;
+
+    return {
+      x1: -outside,
+      y1: loopY,
+      x2: width + outside,
+      y2: loopY
+    };
+  }
+
   function normalCenterline(route, distance, stepCount) {
     const dx = route.x2 - route.x1;
     const dy = route.y2 - route.y1;
@@ -115,12 +127,15 @@
       return;
     }
 
-    const route = routeAcross(width, height);
+    const isFirstTrail = trailCount === 0;
+    const route = isFirstTrail
+      ? firstLoopRoute(width, height)
+      : routeAcross(width, height);
     const dx = route.x2 - route.x1;
     const dy = route.y2 - route.y1;
     const distance = Math.hypot(dx, dy);
     const cycleCount = Math.max(2, Math.min(window.innerWidth < 600 ? 2 : 3, Math.round(distance / 360)));
-    const isLoop = trailCount % 3 === 0;
+    const isLoop = isFirstTrail || trailCount % 3 === 0;
     const centerline = isLoop
       ? loopingCenterline(route, distance)
       : normalCenterline(route, distance, cycleCount * gaitPattern.length);
